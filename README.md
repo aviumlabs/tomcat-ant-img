@@ -10,6 +10,10 @@ This image includes Apache Ant and ant-contrib.
 
 ### Build Default
 
+```shell
+export TC_VERSION=9.0.116
+```
+
 **Regular build**  
 ```shell
 docker build --pull --no-cache -t aviumlabs/tomcat-ant:9.0.113-alpine .

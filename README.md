@@ -5,7 +5,7 @@ tomcat:9.0.nnn-alpine image.
 
 This image includes Apache Ant and ant-contrib.
 
-Current Avium Labs Apache Tomcat version: 9.0.117
+Current Avium Labs Apache Tomcat version: 9.0.118
 
 
 
@@ -14,7 +14,7 @@ Current Avium Labs Apache Tomcat version: 9.0.117
 ### Build Default
 
 ```shell
-export TC_VERSION=9.0.117
+export TC_VERSION=9.0.118
 ```
 
 **Regular build**  

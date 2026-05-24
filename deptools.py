@@ -333,8 +333,8 @@ def update_iiq_properties(prop_file_path: str, db_hostname: str = 'db'):
     iiq_properties_path = os.path.join(ssb_home, prop_file_path)
 
     # Update the iiQ properties database connection settings
-    match_term = r'devsrv(:5432)'
-    replace_term = f'{db_hostname}\\2'
+    match_term = r'devsrv'
+    replace_term = f'{db_hostname}'
 
     with open(iiq_properties_path, 'r') as f:
         iiq_properties = f.read()

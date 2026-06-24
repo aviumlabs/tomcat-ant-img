@@ -3,9 +3,11 @@
 This is an Apache Tomcat 9 OpenJDK 21 Docker image based on the Avium Labs 
 tomcat:9.0.nnn-alpine image.
 
+GitHub: https://github.com/aviumlabs/tomcat-img
+
 This image includes Apache Ant and ant-contrib.
 
-Current Avium Labs Apache Tomcat version: 9.0.118
+Current Avium Labs Apache Tomcat version: 9.0.119
 
 
 
@@ -14,7 +16,7 @@ Current Avium Labs Apache Tomcat version: 9.0.118
 ### Build Default
 
 ```shell
-export TC_VERSION=9.0.118
+export TC_VERSION=9.0.119
 ```
 
 **Regular build**  
@@ -28,7 +30,11 @@ docker build --pull --no-cache -t aviumlabs/tomcat-ant:$TC_VERSION-alpine --prov
 ```
 
 ```shell
-docker run -h ap2 --name ap2 -p 8080:8080 -p 8443:8443 -v ap2_tc_backup:/opt/backup -v ap2_tc_inst_logs:/opt/tomcat/instances/bin-a/logs -v ap2_tc_inst_conf:/opt/tomcat/instances/bin-a/conf -v ap2_tc_secrets:/opt/secrets -v ap2_tc_inst_webapps:/opt/tomcat/instances/bin-a/webapps -it --rm aviumlabs/tomcat-ant:$TC_VERSION-alpine
+export INST_NAME=tc1
+```
+
+```shell
+docker run -h ap2.aviumlabs.test --name ap2 -p 8080:8080 -p 8443:8443 -v ap2_tc_backup:/opt/backup -v ap2_tc_inst_logs:/opt/tomcat/instances/$INST_NAME/logs -v ap2_tc_inst_conf:/opt/tomcat/instances/$INST_NAME/conf -v ap2_tc_secrets:/opt/secrets -v ap2_tc_inst_webapps:/opt/tomcat/instances/$INST_NAME/webapps -it --rm aviumlabs/tomcat-ant:$TC_VERSION-alpine
 ```
 
 Push to docker hub:

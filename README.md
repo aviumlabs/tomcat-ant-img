@@ -7,7 +7,7 @@ GitHub: https://github.com/aviumlabs/tomcat-img
 
 This image includes Apache Ant and ant-contrib.
 
-Current Avium Labs Apache Tomcat version: 9.0.119
+Current Apache Tomcat version: 9.0.119
 
 
 

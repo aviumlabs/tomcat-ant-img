@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM aviumlabs/tomcat:9.0.118-alpine
+FROM aviumlabs/tomcat:9.0.119-alpine
 
 ENV ANT_HOME=/usr/share/java/apache-ant
 ENV PATH="${ANT_HOME}/bin:${PATH}"

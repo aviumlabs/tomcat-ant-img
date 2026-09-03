@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM aviumlabs/tomcat:9.0.119-alpine
+FROM aviumlabs/tomcat:9.0.121-alpine
 
 ENV ANT_HOME=/usr/share/java/apache-ant
 ENV PATH="${ANT_HOME}/bin:${PATH}"
@@ -7,7 +7,6 @@ ENV PG_HOST=db
 ENV PG_PORT=5432
 ENV PG_USER=postgres
 ENV PG_DB=postgres
-
 
 USER root
 

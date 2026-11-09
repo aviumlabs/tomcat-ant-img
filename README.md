@@ -7,14 +7,14 @@ GitHub: https://github.com/aviumlabs/tomcat-img
 
 This image includes Apache Ant and ant-contrib.
 
-Current Apache Tomcat version: 9.0.122
+Current Apache Tomcat version: 9.0.123
 
 ## Build an Image
 
 ### Build Default
 
 ```
-export TC_VERSION=9.0.122
+export TC_VERSION=9.0.123
 ```
 
 **Regular build**  

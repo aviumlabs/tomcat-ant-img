@@ -26,12 +26,6 @@ import time
 from pathlib import Path
 
 
-bk_path = os.environ['BACKUP_HOME']
-log_file = os.path.join(bk_path, 'deptools.log')
-
-logging.basicConfig(format='%(asctime)s %(message)s', filename=log_file, encoding='utf-8', level=logging.INFO)
-logger = logging.getLogger(__name__)
-
 def main(argv):
     # main program
     help_text = """deptools.py [-h|--help] [-b|--backup-db DATABASE] 
@@ -73,6 +67,7 @@ def main(argv):
 
 
 def deploy_war(war_file_path: str):
+    logger = get_logger()
     logger.info("Preparing deployment...")
     print("Preparing deployment...")
 
@@ -99,6 +94,7 @@ def deploy_war(war_file_path: str):
 
 def reload_app(app: str):
     if app:
+        logger = get_logger()
         if check_valid_characters(app):
             logger.info(f"Reloading application {app}...")
             print(f"Reloading application {app}...")
@@ -113,10 +109,28 @@ def reload_app(app: str):
                 logger.error(f"Failed to reload {app}. HTTP status code..{response.status_code}.")
                 print(f"Failed to reload {app}. HTTP status code..{response.status_code}.")
                 logger.error(f"Reload response..{response.text}")
-                print(f"Reload response..{response.text}.")       
+                print(f"Reload response..{response.text}.")
+
+
+def get_logger():
+    if 'BACKUP_HOME' not in os.environ:
+        default_backup_home = "/opt/backup"
+        if os.path.exists(default_backup_home):
+            os.environ['BACKUP_HOME'] = default_backup_home
+        else:
+            raise EnvironmentError("BACKUP_HOME environment variable is not set.")
+    
+    bk_path = os.environ['BACKUP_HOME']
+    log_file = os.path.join(bk_path, 'deptools.log')
+
+    logging.basicConfig(format='%(asctime)s %(message)s', filename=log_file, encoding='utf-8', level=logging.INFO)
+    logger = logging.getLogger(__name__)
+
+    return logger
 
 
 def start_app(app: str):
+    logger = get_logger()
     if app:
         if check_valid_characters(app):
             logger.info(f"Starting application {app}...")
@@ -144,6 +158,7 @@ def start_app(app: str):
 
 def stop_app(app: str):
     if app:
+        logger = get_logger()
         if check_valid_characters(app):
             logger.info(f"Stopping application {app}...")
             print(f"Stopping application {app}...")
@@ -172,6 +187,7 @@ def backup_db(database: str):
     backup_path = os.environ['BACKUP_HOME']
 
     if database:
+        logger = get_logger()
         if check_valid_characters(database):
             logger.info("Backup database...")
             pg_url = get_postgresql_url(database)
@@ -198,6 +214,7 @@ def backup_db(database: str):
 
 
 def create_database(database: str):
+    logger = get_logger()
     if database:
         if check_valid_characters(database):
             pg_url = get_postgresql_url(database)
@@ -242,7 +259,7 @@ def get_postgresql_url(database: str = 'postgres') -> str:
     if 'PG_HOST' in os.environ:
         pg_host = os.environ["PG_HOST"]
     else:
-        pg_host = os.uname().nodename
+        pg_host = 'localhost'
 
     if 'PG_PORT' in os.environ:
         pg_port = os.environ["PG_PORT"]
@@ -295,6 +312,7 @@ def get_tomcat_rpa_credentials():
 
 
 def install_db_schema(sql_file: str, database: str = 'postgres'):
+    logger = get_logger()
     pg_url = get_postgresql_url(database)
     
     if os.path.exists(sql_file):
@@ -308,6 +326,7 @@ def install_db_schema(sql_file: str, database: str = 'postgres'):
     
 
 def is_app_running(app: str) -> bool:
+    logger = get_logger()
     # curl -u username:password http://localhost:8080/manager/text/list
     if app:
         if check_valid_characters(app):
@@ -333,6 +352,7 @@ def is_app_running(app: str) -> bool:
 
 
 def load_sql_file(pg_url, sql_file_path):
+    logger = get_logger()
     # Load the SQL file into the PostgreSQL database using psql
     psql_command = [
         'psql',

@@ -376,7 +376,7 @@ def load_sql_file(pg_url, sql_file_path):
 
 
 def parse_config():
-    conf_file = os.path.join(os.environ['SECRETS_HOME'], 'tomcat.config')
+    conf_file = os.path.join(os.environ.get('HOME'), '.tomcat.conf')
     parser = configparser.ConfigParser()
     parser.read(conf_file)
     # Tomcat configuration dictionary
